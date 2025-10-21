@@ -1,4 +1,5 @@
 import React, { useState, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const COLLEGE_LOGO_URL = 'src/pages/components/ChatGPT Image Oct 3, 2025, 12_39_46 PM.png';
 
@@ -42,24 +43,68 @@ const drawnHatsPattern = encodeURIComponent(`
 `);
 
 export default function LoginPage() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState<'success' | 'error' | ''>('');
 
   function handleLogin(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    fetch('/api/auth/login', {
+    setLoading(true);
+    setMessage('');
+    setMessageType('');
+
+    fetch('https://auth-service-962740711395.us-central1.run.app/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     })
-      .then(res => res.json())
-      .then(data => {
-        alert(data.message || 'Logged in!');
+      .then(async (res) => {
+        const data = await res.json();
+        
+        if (!res.ok) {
+          // Handle specific error cases
+          if (res.status === 401) {
+            if (data.message?.toLowerCase().includes('user not found') || 
+                data.message?.toLowerCase().includes('user does not exist')) {
+              setMessage('User does not exist. Please check your email address or register for a new account.');
+            } else if (data.message?.toLowerCase().includes('password') || 
+                       data.message?.toLowerCase().includes('invalid credentials')) {
+              setMessage('Incorrect password. Please check your password and try again.');
+            } else {
+              setMessage('Invalid credentials. Please check your email and password.');
+            }
+          } else if (res.status === 400) {
+            setMessage('Please fill in all required fields correctly.');
+          } else if (res.status === 500) {
+            setMessage('Server error. Please try again later.');
+          } else {
+            setMessage(data.message || 'Login failed. Please try again.');
+          }
+          setMessageType('error');
+          return;
+        }
+        
+        // Success case
+        setMessage(data.message || 'Login successful! Redirecting...');
+        setMessageType('success');
+        // Navigate to dashboard on successful login
+        setTimeout(() => {
+          navigate('/dashboard');
+        }, 1000);
       })
-      .catch(err => alert('Login failed'));
+      .catch((err) => {
+        setMessage('Network error. Please check your internet connection and try again.');
+        setMessageType('error');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
-
+  
   return (
     <>
       <style>
@@ -133,6 +178,25 @@ export default function LoginPage() {
             font-size: 15px;
             margin-top: 2px;
           }
+          .login-message {
+            margin-top: 20px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+          }
+          .login-message.error {
+            background-color: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+          }
+          .login-message.success {
+            background-color: #dcfce7;
+            color: #16a34a;
+            border: 1px solid #bbf7d0;
+          }
           .login-form {
             margin-top: 28px;
             width: 100%;
@@ -187,6 +251,12 @@ export default function LoginPage() {
             font-size: 16px;
             cursor: pointer;
             text-align: center;
+            transition: all 0.2s ease;
+          }
+          .login-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            opacity: 0.7;
           }
           @media (max-width: 500px) {
             .login-box {
@@ -216,6 +286,11 @@ export default function LoginPage() {
                 The key to happiness is to sign in.
               </div>
             </div>
+            {message && (
+              <div className={`login-message ${messageType}`}>
+                {message}
+              </div>
+            )}
             <form className="login-form" onSubmit={handleLogin}>
               <div className="login-form-group">
                 <label htmlFor="email">Email Address</label>
@@ -223,7 +298,13 @@ export default function LoginPage() {
                   id="email"
                   type="email"
                   value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={e => {
+                    setEmail(e.target.value);
+                    if (message) {
+                      setMessage('');
+                      setMessageType('');
+                    }
+                  }}
                   required
                 />
               </div>
@@ -233,7 +314,13 @@ export default function LoginPage() {
                   id="password"
                   type={showPassword ? 'text' : 'password'}
                   value={password}
-                  onChange={e => setPassword(e.target.value)}
+                  onChange={e => {
+                    setPassword(e.target.value);
+                    if (message) {
+                      setMessage('');
+                      setMessageType('');
+                    }
+                  }}
                   required
                 />
               </div>
@@ -254,8 +341,8 @@ export default function LoginPage() {
                   Forgot password?
                 </a>
               </div>
-              <button type="submit" className="login-btn">
-                Sign In
+              <button type="submit" className="login-btn" disabled={loading}>
+                {loading ? 'Signing In...' : 'Sign In'}
               </button>
             </form>
           </div>
