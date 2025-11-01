@@ -11,31 +11,31 @@ const drawnHatsPattern = encodeURIComponent(`
     <path d="M30 50 l25 -10 l25 10 l-25 10 Z" stroke="#22223b" stroke-width="2" fill="none"/>
     <ellipse cx="55" cy="60" rx="8" ry="3" fill="#fff" stroke="#22223b" stroke-width="2"/>
     <line x1="55" y1="63" x2="55" y2="72" stroke="#22223b" stroke-width="2"/>
-    <circle cx="55" cy="72" r="2" fill="#4f46e5" stroke="#22223b" stroke-width="1"/>
+    <circle cx="55" cy="72" r="2" fill="#ac0bf1ff" stroke="#22223b" stroke-width="1"/>
   </g>
   <g transform="rotate(-21 120 40)">
-    <path d="M120 40 l20 -8 l20 8 l-20 8 Z" stroke="#4f46e5" stroke-width="2" fill="none"/>
-    <ellipse cx="140" cy="48" rx="6" ry="2" fill="#fff" stroke="#4f46e5" stroke-width="2"/>
-    <line x1="140" y1="50" x2="140" y2="57" stroke="#4f46e5" stroke-width="2"/>
-    <circle cx="140" cy="57" r="2" fill="#22223b" stroke="#4f46e5" stroke-width="1"/>
+    <path d="M120 40 l20 -8 l20 8 l-20 8 Z" stroke="#ac0bf1ff" stroke-width="2" fill="none"/>
+    <ellipse cx="140" cy="48" rx="6" ry="2" fill="#fff" stroke="#ac0bf1ff" stroke-width="2"/>
+    <line x1="140" y1="50" x2="140" y2="57" stroke="#ac0bf1ff" stroke-width="2"/>
+    <circle cx="140" cy="57" r="2" fill="#22223b" stroke="#ac0bf1ff" stroke-width="1"/>
   </g>
   <g transform="rotate(-8 80 120)">
     <path d="M80 120 l15 -6 l15 6 l-15 6 Z" stroke="#22223b" stroke-width="2" fill="none"/>
     <ellipse cx="95" cy="126" rx="5" ry="2" fill="#fff" stroke="#22223b" stroke-width="2"/>
     <line x1="95" y1="128" x2="95" y2="135" stroke="#22223b" stroke-width="2"/>
-    <circle cx="95" cy="135" r="2" fill="#4f46e5" stroke="#22223b" stroke-width="1"/>
+    <circle cx="95" cy="135" r="2" fill="#ac0bf1ff" stroke="#22223b" stroke-width="1"/>
   </g>
   <g transform="rotate(17 45 135)">
-    <path d="M45 135 l13 -5 l13 5 l-13 5 Z" stroke="#4f46e5" stroke-width="2" fill="none"/>
-    <ellipse cx="58" cy="140" rx="4" ry="2" fill="#fff" stroke="#4f46e5" stroke-width="2"/>
-    <line x1="58" y1="142" x2="58" y2="148" stroke="#4f46e5" stroke-width="2"/>
-    <circle cx="58" cy="148" r="2" fill="#22223b" stroke="#4f46e5" stroke-width="1"/>
+    <path d="M45 135 l13 -5 l13 5 l-13 5 Z" stroke="#ac0bf1ff" stroke-width="2" fill="none"/>
+    <ellipse cx="58" cy="140" rx="4" ry="2" fill="#fff" stroke="#ac0bf1ff" stroke-width="2"/>
+    <line x1="58" y1="142" x2="58" y2="148" stroke="#ac0bf1ff" stroke-width="2"/>
+    <circle cx="58" cy="148" r="2" fill="#22223b" stroke="#ac0bf1ff" stroke-width="1"/>
   </g>
   <g transform="rotate(-30 140 100)">
     <path d="M140 100 l17 -7 l17 7 l-17 7 Z" stroke="#22223b" stroke-width="2" fill="none"/>
     <ellipse cx="157" cy="107" rx="4" ry="2" fill="#fff" stroke="#22223b" stroke-width="2"/>
     <line x1="157" y1="109" x2="157" y2="115" stroke="#22223b" stroke-width="2"/>
-    <circle cx="157" cy="115" r="2" fill="#4f46e5" stroke="#22223b" stroke-width="1"/>
+    <circle cx="157" cy="115" r="2" fill="#ac0bf1ff" stroke="#22223b" stroke-width="1"/>
   </g>
 </g>
 </svg>
@@ -168,7 +168,7 @@ export default function LoginPage() {
             font-size: 14px;
           }
           .login-form-row .forgot-link {
-            color: #4f46e5;
+            color: #ac0bf1ff;
             font-size: 14px;
             text-decoration: underline;
             cursor: pointer;
@@ -180,7 +180,7 @@ export default function LoginPage() {
             display: block;
             margin: 0 auto;
             padding: 12px;
-            background: #4f46e5;
+            background: #ac0bf1ff;
             color: white;
             border: none;
             border-radius: 7px;
